@@ -53,7 +53,7 @@ public class MapActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.fragment_map, container, false);
 
         map = (MapView) view.findViewById(R.id.map);
 
@@ -208,13 +208,10 @@ public class MapActivityFragment extends Fragment {
         refresh();
     }
 
-    @Events.Subscribe("click-boton")
-    private void onClickButton() {
-        Events.create("clicar").param(0).post();
 
-        Intent intent = new Intent(getContext(), MapActivity.class);
-        intent.putExtra("pasar", 0);
-        startActivity(intent);
+    @Events.Subscribe("clicar")
+    private void onClicar(int opcion ) {
+        Log.d("--------------------->","Pasar a la vista del MAPA!");
     }
 
     private void refresh() {
@@ -235,6 +232,12 @@ public class MapActivityFragment extends Fragment {
             //Log.d("DEBUG", result.toString());
             datosEstaciones = result;
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            putMarkers();
         }
     }
 

@@ -109,14 +109,14 @@ public class MainActivityFragment extends Fragment {
                 Toast.makeText(getContext(), "" + position,Toast.LENGTH_SHORT).show();        }});
 
 */
-        Intent i = getActivity().getIntent();
+        /*Intent i = getActivity().getIntent();
         if (i != null) {
             int op = (int) i.getSerializableExtra("pasar");
             if (op ==0) {
                 Log.d("Vuelta del activity del Mapa","");
             }
         }
-
+*/
 
         return view;
     }
@@ -279,8 +279,13 @@ public class MainActivityFragment extends Fragment {
         Events.register(this);
     }
 
-    @Events.Subscribe("clicar")
-    private void onClicar(int opcion ) {
-        Log.d("Pasar de la vista del MAPA!","");
+
+    @Events.Subscribe("click-boton")
+    private void onClickButton() {
+        //+Events.create("clicar").param(0).post();
+        Log.d("-------------------------->","volver del Mapa");
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        intent.putExtra("pasar", 0);
+        startActivity(intent);
     }
 }
