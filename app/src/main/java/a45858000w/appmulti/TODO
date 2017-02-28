@@ -1,0 +1,6 @@
+funciona, el muestreo de todas las estaciones, y el cambio entre el layout del mapa y el principal, y funciona la camara y la camara de video.
+
+Falta:
+ - mostrar las fotos/ videos en el gridview
+ - localizar las fotos donde se han hecho
+ - marcar los puntos donde existen bicis en mal estado
