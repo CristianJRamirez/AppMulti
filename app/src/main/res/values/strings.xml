@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AppMulti</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="titulo_actividad_detalle">Mapa</string>
+
+    <string name="nombre_transicion_imagen">imagen_compartida</string>
+    <string name="title_activity_actividad_detalle">ActividadMapa</string>
+    <string name="title_activity_map">MapActivity</string>
+
+</resources>

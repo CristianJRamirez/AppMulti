@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "137476273406",
+    "firebase_url": "https://appmulti-69057.firebaseio.com",
+    "project_id": "appmulti-69057",
+    "storage_bucket": "appmulti-69057.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137476273406:android:8143dfa17b0b8325",
+        "android_client_info": {
+          "package_name": "a45858000w.appmulti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137476273406-3nphdfgpscpvdmvrarkco4l94mog4v12.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuMSpLduRXTQeS5qjPm20p7uhTtcbbqKE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

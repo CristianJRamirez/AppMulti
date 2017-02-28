@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="a45858000w.appmulti.MapActivity">
+    <item
+        android:id="@+id/mostrarEstaciones"
+        android:orderInCategory="100"
+        android:title="MostrarEstaciones"
+        app:showAsAction="always" />
+</menu>
