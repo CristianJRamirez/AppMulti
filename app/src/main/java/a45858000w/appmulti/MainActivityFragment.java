@@ -95,7 +95,7 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
-      /*  gridview = (GridView) view.findViewById(R.id.grdGaleria);
+        gridview = (GridView) view.findViewById(R.id.grdGaleria);
         // crear el gridview a partir del elemento del xml gridview
 
 
@@ -108,15 +108,7 @@ public class MainActivityFragment extends Fragment {
 
                 Toast.makeText(getContext(), "" + position,Toast.LENGTH_SHORT).show();        }});
 
-*/
-        /*Intent i = getActivity().getIntent();
-        if (i != null) {
-            int op = (int) i.getSerializableExtra("pasar");
-            if (op ==0) {
-                Log.d("Vuelta del activity del Mapa","");
-            }
-        }
-*/
+
 
         return view;
     }
@@ -160,6 +152,9 @@ public class MainActivityFragment extends Fragment {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         Uri.fromFile(photoFile));
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+
+                DatabaseReference newReference = todosRef.push();
+                newReference.setValue(photoFile.getAbsolutePath());
             }
         }
     }
@@ -184,6 +179,9 @@ public class MainActivityFragment extends Fragment {
                 takeVideoIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); // set the video image quality to high
 
                 startActivityForResult(takeVideoIntent, CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
+
+                DatabaseReference newReference = todosRef.push();
+                newReference.setValue(videoFile.getAbsolutePath());
             }
         }
     }
