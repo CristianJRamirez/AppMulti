@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "137476273406",
-    "firebase_url": "https://appmulti-69057.firebaseio.com",
-    "project_id": "appmulti-69057",
-    "storage_bucket": "appmulti-69057.appspot.com"
+    "project_number": "162852112824",
+    "firebase_url": "https://entregauf2.firebaseio.com",
+    "project_id": "entregauf2",
+    "storage_bucket": "entregauf2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:137476273406:android:8143dfa17b0b8325",
+        "mobilesdk_app_id": "1:162852112824:android:8143dfa17b0b8325",
         "android_client_info": {
           "package_name": "a45858000w.appmulti"
         }
       },
       "oauth_client": [
         {
-          "client_id": "137476273406-3nphdfgpscpvdmvrarkco4l94mog4v12.apps.googleusercontent.com",
+          "client_id": "162852112824-m1d6rfcig7j18ef3keqn4ebqolv3nbuf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "a45858000w.appmulti",
+            "certificate_hash": "920a5ac6dce879046e36000dcd9ce74194b58b07"
+          }
+        },
+        {
+          "client_id": "162852112824-oufeu8s83ks067klirsk5vogscg4osnq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBuMSpLduRXTQeS5qjPm20p7uhTtcbbqKE"
+          "current_key": "AIzaSyBOpzjCJfqt4PYZdcqjtPKeeehNZALjzuY"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "162852112824-oufeu8s83ks067klirsk5vogscg4osnq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

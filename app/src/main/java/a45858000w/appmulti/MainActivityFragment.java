@@ -3,9 +3,15 @@ package a45858000w.appmulti;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,7 +28,15 @@ import android.widget.Toast;
 
 import com.alexvasilkov.events.Events;
 import com.bumptech.glide.Glide;
+import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,10 +44,14 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
@@ -56,7 +74,13 @@ public class MainActivityFragment extends Fragment {
 
     private ArrayList<String> items;
     FirebaseListAdapter<String> adapterFBLA;
+    private FirebaseAuth auth;
+    private int RC_Sign_in =123;
 
+    private TrackGPS gps;
+    double longitude;
+    double latitude;
+    ArrayList<Localizacion> localizaciones =null;
 
 
     public MainActivityFragment() {
@@ -71,6 +95,7 @@ public class MainActivityFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         todosRef = database.getReference("todos");
 
+        localizaciones = new ArrayList<Localizacion>();
 
         btCamara = (Button) view.findViewById(R.id.btCamara);
 
@@ -78,11 +103,34 @@ public class MainActivityFragment extends Fragment {
 
         btMapa = (Button) view.findViewById(R.id.btMap);
 
+       // setupAuth();
 
         btCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TakePhoto();
+
+                gps = new TrackGPS(getContext());
+
+
+                if(gps.canGetLocation()){
+
+
+                    longitude = gps.getLongitude();
+                    latitude = gps .getLatitude();
+
+                    Localizacion l = new Localizacion(longitude,latitude);
+                    Log.d("-------->>>>>>>>>>>>>>>>>>",l.toString());
+
+                    localizaciones.add(l);
+
+
+                }
+                else
+                {
+
+                    gps.showSettingsAlert();
+                }
             }
         });
 
@@ -123,18 +171,32 @@ public class MainActivityFragment extends Fragment {
 
                 //Log.d("URL------------->",model);
 
+
             }
         };
 
         gridview.setAdapter(adapterFBLA);
 
-
-
         return view;
     }
 
-
-
+    private void setupAuth() {
+        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            Log.d("Current user", String.valueOf(auth.getCurrentUser()));
+        } else {
+            startActivityForResult(
+                    // Get an instance of AuthUI based on the default app
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setIsSmartLockEnabled(false)
+                            .setProviders(Arrays.asList(
+                                    new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build())
+                            )
+                            .build(),
+                    RC_Sign_in);}
+    }
 
 
     private File createImageFile() throws IOException {
@@ -173,11 +235,15 @@ public class MainActivityFragment extends Fragment {
                         Uri.fromFile(photoFile));
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
 
+                Log.d("------__-------------------->", photoFile.getAbsolutePath());
+
                 DatabaseReference newReference = todosRef.push();
                 newReference.setValue(photoFile.getAbsolutePath());
             }
         }
     }
+
+
 
 
     private void takeVideo ()
@@ -226,7 +292,7 @@ public class MainActivityFragment extends Fragment {
     }
 
 
-    public void onActivityResult(int requestCode, int resultCode, Intent intent)  {
+  /*  public void onActivityResult(int requestCode, int resultCode, Intent intent)  {
         super.onActivityResult(requestCode, resultCode, intent);
 
         try {
@@ -289,7 +355,7 @@ public class MainActivityFragment extends Fragment {
         }
 
     }
-
+*/
 
     @Override
     public void onStart() {
@@ -306,4 +372,8 @@ public class MainActivityFragment extends Fragment {
         intent.putExtra("pasar", 0);
         startActivity(intent);
     }
+
+
+
+
 }

@@ -89,7 +89,11 @@ public class MapActivityFragment extends Fragment {
                 marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
 
                 Drawable icono = null;
-                int disponibilidad = (estacion.getBikes() * 100 / (estacion.getBikes() + estacion.getSlots()));
+                if (estacion.getBikes()>0 && estacion.getSlots()>0)
+                {
+                    int disponibilidad = (estacion.getBikes() * 100 / (estacion.getBikes() + estacion.getSlots()));
+                }
+                int disponibilidad = 0;
 
                 if (disponibilidad >=50) {
                     icono = getResources().getDrawable(R.drawable.opcion2_opt);
