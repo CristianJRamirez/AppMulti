@@ -16,15 +16,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.alexvasilkov.events.Events;
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -48,6 +52,9 @@ public class MainActivityFragment extends Fragment {
     private String pathVideoTemporal;
     private static final int REQUEST_TAKE_PHOTO = 1;
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
+
+    private ArrayList<String> items;
+    FirebaseListAdapter<String> adapterFBLA;
 
 
 
@@ -99,14 +106,34 @@ public class MainActivityFragment extends Fragment {
         // crear el gridview a partir del elemento del xml gridview
 
 
-        //gridview.setAdapter( new GridViewImageAdapter(getContext()) );
 
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int
-                    position, long id) {
+        items = new ArrayList<>();
 
-                Toast.makeText(getContext(), "" + position,Toast.LENGTH_SHORT).show();        }});
+        adapterFBLA = new FirebaseListAdapter<String>(
+                getActivity(), String.class, R.layout.items_multimedia, todosRef)
+        {
+            @Override
+            protected void populateView(View v, String model, int position) {
+
+                //((ImageView) v.findViewById(R.id.iv_item)).setI(model);
+                //Glide.with(getContext()).load(serie.getImageThumb()).into(ivPoster);
+
+
+
+
+                ImageView imagen = (ImageView) v.findViewById(R.id.itemMulti);
+                Glide.with(getContext()).load(model).into(imagen);
+
+//                TextView text = (TextView) v.findViewById(R.id.tv_EX);
+//                text.setText(model);
+
+                Log.d("URL------------->",model);
+
+            }
+        };
+
+        gridview.setAdapter(adapterFBLA);
 
 
 

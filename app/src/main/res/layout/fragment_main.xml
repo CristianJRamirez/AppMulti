@@ -63,6 +63,10 @@
         android:layout_marginLeft="16dp"
         app:layout_constraintBottom_toTopOf="@+id/btVideo"
         android:layout_marginBottom="8dp"
-        android:id="@+id/grdGaleria" />
+        android:id="@+id/grdGaleria"
+
+
+        android:numColumns="3"
+        android:stretchMode="columnWidth"/>
 
 </android.support.constraint.ConstraintLayout>
