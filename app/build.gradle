@@ -34,8 +34,7 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-auth:1.1.1'
     compile 'com.firebaseui:firebase-ui-database:1.1.1'
     compile 'com.google.firebase:firebase-database:10.0.1'
-    compile 'com.github.bumptech.glide:glide:3.6.1'
-
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.alexvasilkov:events:1.0.0'
     compile 'org.osmdroid:osmdroid-android:5.1@aar'
     compile 'com.github.MKergall.osmbonuspack:OSMBonusPack:v5.7'

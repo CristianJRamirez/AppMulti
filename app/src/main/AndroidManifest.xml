@@ -4,6 +4,7 @@
 
     <!-- Necessitem permís per crear fitxers en la sd -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- Ens assegurem de que sols els dispositius en càmera puguen instal·lar la nostra app -->
     <uses-feature
