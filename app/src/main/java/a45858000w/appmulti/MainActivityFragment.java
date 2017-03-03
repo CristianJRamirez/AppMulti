@@ -2,6 +2,7 @@ package a45858000w.appmulti;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -116,19 +117,11 @@ public class MainActivityFragment extends Fragment {
             @Override
             protected void populateView(View v, String model, int position) {
 
-                //((ImageView) v.findViewById(R.id.iv_item)).setI(model);
-                //Glide.with(getContext()).load(serie.getImageThumb()).into(ivPoster);
-
-
-
-
                 ImageView imagen = (ImageView) v.findViewById(R.id.itemMulti);
+
                 Glide.with(getContext()).load(model).into(imagen);
 
-//                TextView text = (TextView) v.findViewById(R.id.tv_EX);
-//                text.setText(model);
-
-                Log.d("URL------------->",model);
+                //Log.d("URL------------->",model);
 
             }
         };
