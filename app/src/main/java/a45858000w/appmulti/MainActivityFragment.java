@@ -66,6 +66,7 @@ public class MainActivityFragment extends Fragment {
     private GridView gridview;
     FirebaseDatabase database;
     private DatabaseReference todosRef;
+    private DatabaseReference refLocal;
 
     private String pathFotoTemporal;
     private String pathVideoTemporal;
@@ -94,6 +95,7 @@ public class MainActivityFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance();
         todosRef = database.getReference("todos");
+        refLocal = database.getReference("localizaciones");
 
         localizaciones = new ArrayList<Localizacion>();
 
@@ -122,9 +124,11 @@ public class MainActivityFragment extends Fragment {
                     Localizacion l = new Localizacion(longitude,latitude);
                     Log.d("-------->>>>>>>>>>>>>>>>>>",l.toString());
 
+
+                    DatabaseReference newReference = todosRef.push();
+                    newReference.setValue(l.toString());
+
                     localizaciones.add(l);
-
-
                 }
                 else
                 {
@@ -163,19 +167,11 @@ public class MainActivityFragment extends Fragment {
 
         items = new ArrayList<>();
 
-        adapterFBLA = new FirebaseListAdapter<String>(
-                getActivity(), String.class, R.layout.items_multimedia, todosRef)
-        {
+        adapterFBLA = new FirebaseListAdapter<String>(getActivity(), String.class, R.layout.items_multimedia, todosRef)        {
             @Override
             protected void populateView(View v, String model, int position) {
-
                 ImageView imagen = (ImageView) v.findViewById(R.id.itemMulti);
-
                 Glide.with(getContext()).load(model).into(imagen);
-
-                //Log.d("URL------------->",model);
-
-
             }
         };
 
@@ -235,8 +231,7 @@ public class MainActivityFragment extends Fragment {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(photoFile));
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photoFile));
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
 
                 Log.d("------__-------------------->", photoFile.getAbsolutePath());

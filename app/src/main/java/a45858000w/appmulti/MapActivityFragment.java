@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.clustering.RadiusMarkerClusterer;
@@ -29,6 +30,7 @@ import org.osmdroid.views.overlay.compass.InternalCompassOrientationProvider;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import com.alexvasilkov.events.Events;
+import com.firebase.ui.database.FirebaseListAdapter;
 
 import java.util.ArrayList;
 
@@ -65,6 +67,8 @@ public class MapActivityFragment extends Fragment {
                 Log.d(" ---------------------------------------------",l.toString());
             }
         }
+
+
 
         initializeMap();
         setZoom();
