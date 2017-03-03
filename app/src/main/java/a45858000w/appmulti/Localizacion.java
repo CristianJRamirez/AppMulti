@@ -1,10 +1,12 @@
 package a45858000w.appmulti;
 
+import java.io.Serializable;
+
 /**
  * Created by 45858000w on 03/03/17.
  */
 
-public class Localizacion {
+public class Localizacion implements Serializable {
 
     public double longitude;
     public double latitude;

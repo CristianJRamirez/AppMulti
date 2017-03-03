@@ -147,6 +147,10 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(),MapActivity.class);
+                for (Localizacion l:localizaciones) {
+                    Log.d(" ---------------------------------------------",l.toString());
+                }
+                intent.putExtra("localizaciones", localizaciones);
                 startActivity(intent);
             }
         });

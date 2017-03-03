@@ -45,6 +45,7 @@ public class MapActivityFragment extends Fragment {
     private RadiusMarkerClusterer markers;
     private View view;
     private ArrayList<DatosEstacion> datosEstaciones;
+    ArrayList<Localizacion> localizaciones =null;
 
 
     public MapActivityFragment() {
@@ -56,6 +57,14 @@ public class MapActivityFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_map, container, false);
 
         map = (MapView) view.findViewById(R.id.map);
+
+        Intent i = getActivity().getIntent();
+        if (i != null) {
+            localizaciones = (ArrayList<Localizacion>) i.getSerializableExtra("localizaciones");
+            for (Localizacion l:localizaciones) {
+                Log.d(" ---------------------------------------------",l.toString());
+            }
+        }
 
         initializeMap();
         setZoom();
@@ -112,27 +121,48 @@ public class MapActivityFragment extends Fragment {
                 marker.setImage(icono);
 
 
-                //si se pone este evento no funciona lo de arriba de setIcono,setti..., por eso hay que probar si dentro funciona, y ver si funciona lo del boton
-                final Drawable finalIcono = icono;
-                marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(Marker marker, MapView mapView) {
-                        Log.d("----------", "-------------");
-                        marker.setIcon(finalIcono);
-                        marker.setTitle(titulo);
-                        marker.setSnippet(datos);
-                        marker.setImage(finalIcono);
 
-                        //PROBAR!!
-                        //al hacer on clicl marker
-                        //ActionBar Contextual
-                        /*mActionMode = getActivity().startActionMode((ActionMode.Callback) new ActionBarCallBack(marker));
-                        mActionMode.setTitle(marker.getTitle());
-                        */
+                marker.setAlpha(0.6f);
 
-                        return false;
-                    }
-                });
+
+
+
+                markers.add(marker);
+                markers.invalidate();
+                map.invalidate();
+            }
+        }
+        putMarkerPhotoVideo();
+    }
+
+    private void putMarkerPhotoVideo()
+    {
+        if (localizaciones != null) {
+            for (Localizacion loc : localizaciones) {
+                Marker marker = new Marker(map);
+
+                GeoPoint point = new GeoPoint(
+                        loc.getLatitude(),
+                        loc.getLongitude()
+                );
+
+                marker.setPosition(point);
+
+                marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+
+                Drawable icono = getResources().getDrawable(R.drawable.images_opt);
+
+
+                /*final String titulo = "-> " + loc.getStreetName() + ", " + estacion.getStreetNumber() + " [" + estacion.getStatus() + "]";
+                final String datos = "\tDisponibles Bicis a Recoger = " + estacion.getBikes() + "," +
+                        "\n\t Disponibles Bicis a colocar = " + estacion.getSlots() + "," +
+                        "\n\t Tipo de Bici = " + estacion.getType();
+*/
+                marker.setIcon(icono);
+                marker.setTitle(loc.toString());
+                //marker.setSnippet(datos);
+                marker.setImage(icono);
+
 
 
                 marker.setAlpha(0.6f);
@@ -146,7 +176,6 @@ public class MapActivityFragment extends Fragment {
             }
         }
     }
-
 
     private void setupMarkerOverlay() {
         markers = new RadiusMarkerClusterer(getContext());
