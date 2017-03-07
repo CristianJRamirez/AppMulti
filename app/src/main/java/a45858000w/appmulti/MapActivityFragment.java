@@ -174,6 +174,15 @@ public class MapActivityFragment extends Fragment {
 
                 marker.setAlpha(0.6f);
 
+                final String titulo = loc.getLongitude()+"-"+loc.getLatitude();
+                final String path =loc.getPathPhoto();
+                        marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker, MapView mapView) {
+                        marker.setInfoWindow(new InfoWindow(getContext(),map, path,titulo ));
+                        return false;
+                    }
+                });
 
 
 

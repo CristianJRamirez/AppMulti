@@ -19,7 +19,7 @@ public class VideoActivity extends AppCompatActivity {
         videoView = (VideoView) findViewById(R.id.vw_video);
 
         Bundle dat = getIntent().getExtras();
-        String url = dat.getString("sel");
+        String url = dat.getString("seleccion");
         Uri uri = Uri.parse(url);
         videoView.setVideoURI(uri);
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

@@ -23,7 +23,7 @@ public class ImageActivity extends AppCompatActivity {
         ImageView iv_image = (ImageView) this.findViewById(R.id.iv_image);
 
         Bundle dat = getIntent().getExtras();
-        String url = dat.getString("sel");
+        String url = dat.getString("seleccion");
         Glide.with(this).load(url).into(iv_image);
 
         Log.d("Sss", url);

@@ -173,7 +173,7 @@ public class MainActivityFragment extends Fragment {
                     intent = new Intent(getContext(), VideoActivity.class);
                 }
                 Bundle datos= new Bundle();
-                datos.putString("sel", model);
+                datos.putString("seleccion", model);
                 intent.putExtras(datos);
                 startActivity(intent);
                 Log.d("URL------------->",model);
