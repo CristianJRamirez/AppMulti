@@ -68,8 +68,10 @@ public class MainActivityFragment extends Fragment {
     private DatabaseReference todosRef;
     private DatabaseReference refLocal;
 
+    private String pathTemporal;
     private String pathFotoTemporal;
     private String pathVideoTemporal;
+
     private static final int REQUEST_TAKE_PHOTO = 1;
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
 
@@ -111,30 +113,8 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 TakePhoto();
+                capturarLocalizacion();
 
-                gps = new TrackGPS(getContext());
-
-
-                if(gps.canGetLocation()){
-
-
-                    longitude = gps.getLongitude();
-                    latitude = gps .getLatitude();
-
-                    Localizacion l = new Localizacion(longitude,latitude);
-                    Log.d("-------->>>>>>>>>>>>>>>>>>",l.toString());
-
-
-                    DatabaseReference newReference = todosRef.push();
-                    newReference.setValue(l.toString());
-
-                    localizaciones.add(l);
-                }
-                else
-                {
-
-                    gps.showSettingsAlert();
-                }
             }
         });
 
@@ -143,6 +123,7 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 takeVideo();
+                capturarLocalizacion();
             }
         });
 
@@ -177,9 +158,60 @@ public class MainActivityFragment extends Fragment {
 
         gridview.setAdapter(adapterFBLA);
 
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String model = adapterFBLA.getItem(position);
+                Intent intent;
+                if (model.contains("jpg"))
+                {
+                    intent = new Intent(getContext(), ImageActivity.class);
+                }
+                else
+                {
+                    intent = new Intent(getContext(), VideoActivity.class);
+                }
+                Bundle datos= new Bundle();
+                datos.putString("sel", model);
+                intent.putExtras(datos);
+                startActivity(intent);
+                Log.d("URL------------->",model);
+            }
+            });
+
         return view;
     }
 
+    private void capturarLocalizacion()
+    {
+        gps = new TrackGPS(getContext());
+
+
+        if(gps.canGetLocation()){
+
+
+            longitude = gps.getLongitude();
+            latitude = gps .getLatitude();
+
+            Localizacion l = new Localizacion(longitude,latitude,pathTemporal);
+            Log.d("-------->>>>>>>>>>>>>>>>>>",l.toString());
+
+
+
+            DatabaseReference newReference = refLocal.push();
+            newReference.setValue(l.toString());
+
+
+
+            localizaciones.add(l);
+        }
+        else
+        {
+
+            gps.showSettingsAlert();
+        }
+    }
     private void setupAuth() {
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
@@ -235,6 +267,7 @@ public class MainActivityFragment extends Fragment {
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
 
                 Log.d("------__-------------------->", photoFile.getAbsolutePath());
+                pathTemporal=photoFile.getAbsolutePath();
 
                 DatabaseReference newReference = todosRef.push();
                 newReference.setValue(photoFile.getAbsolutePath());
@@ -264,6 +297,8 @@ public class MainActivityFragment extends Fragment {
                 takeVideoIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); // set the video image quality to high
 
                 startActivityForResult(takeVideoIntent, CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
+
+                pathTemporal=videoFile.getAbsolutePath();
 
                 DatabaseReference newReference = todosRef.push();
                 newReference.setValue(videoFile.getAbsolutePath());

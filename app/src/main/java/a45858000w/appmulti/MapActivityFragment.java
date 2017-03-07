@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.icu.text.LocaleDisplayNames;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -141,6 +142,7 @@ public class MapActivityFragment extends Fragment {
 
     private void putMarkerPhotoVideo()
     {
+        Log.d("###############################","");
         if (localizaciones != null) {
             for (Localizacion loc : localizaciones) {
                 Marker marker = new Marker(map);
@@ -149,6 +151,7 @@ public class MapActivityFragment extends Fragment {
                         loc.getLatitude(),
                         loc.getLongitude()
                 );
+                Log.d("###############################",loc.toString());
 
                 marker.setPosition(point);
 

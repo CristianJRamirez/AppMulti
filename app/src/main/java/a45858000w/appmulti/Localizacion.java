@@ -10,10 +10,12 @@ public class Localizacion implements Serializable {
 
     public double longitude;
     public double latitude;
+    public String pathPhoto;
 
-    public Localizacion(double longitude, double latitude) {
+    public Localizacion(double longitude, double latitude,String path) {
         this.longitude = longitude;
         this.latitude = latitude;
+        this.pathPhoto=path;
     }
 
     public double getLongitude() {
@@ -32,11 +34,20 @@ public class Localizacion implements Serializable {
         this.latitude = latitude;
     }
 
+    public String getPathPhoto() {
+        return pathPhoto;
+    }
+
+    public void setPathPhoto(String pathPhoto) {
+        this.pathPhoto = pathPhoto;
+    }
+
     @Override
     public String toString() {
         return "Localizacion{" +
                 "longitude=" + longitude +
                 ", latitude=" + latitude +
+                ", pathPhoto='" + pathPhoto + '\'' +
                 '}';
     }
 }
